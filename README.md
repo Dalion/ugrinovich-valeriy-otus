@@ -1,2 +1,2 @@
-# ugrinovich-valeriy-otus
+# Угринович Валерий Дмитриевич
 Курс OTUS по JS
