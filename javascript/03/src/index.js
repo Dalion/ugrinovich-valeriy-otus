@@ -1,33 +1,28 @@
-const selectors = [
-  (el) => el.tagName,
-  (el) => el.id ? `#${el.id}` : '',
-  (el) => el.classList.length > 0 ? '.' + [...el.classList].join('.') : '',
-  (el) => el.getAttributeNames()
-      .filter(name => name !== 'class' && name !== 'id')
-      .map(attr => `[${attr}='${el.getAttribute(attr)}']`)
-      .join('')
-];
+function getSelector(currentEl, parentEl) {
+  let result = currentEl.tagName;
+  const sameSiblings = Array.from(parentEl.childNodes).filter(el => el.tagName === result);
+  if (sameSiblings.length > 1) {
+    result += `:nth-of-type(${Array.from(sameSiblings).indexOf(currentEl) + 1})`;
+  }
+  return result;
+}
 
 function getPath(domEl) {
-  let path = getElementSelector(domEl);
+  let currentEl = domEl;
   let parentEl = domEl.parentNode;
 
-  while (parentEl !== null && isNotUnique(path)) {
-    path = getElementSelector(parentEl) + ' > ' + path;
-    parentEl = parentEl.parentNode;
+  if (parentEl === null) {
+    return currentEl.tagName;
+  } else {
+    let path = [];
+    while (parentEl !== null) {
+      path.unshift(getSelector(currentEl, parentEl));
+      currentEl = parentEl;
+      parentEl = currentEl.parentNode;
+    }
+
+    return path.join(' > ');
   }
-
-  return path;
-}
-
-function getElementSelector(el) {
-  return selectors.reduce((acc, selector) => {
-    return acc += selector(el);
-  }, '')
-}
-
-function isNotUnique(path) {
-  return document.querySelectorAll(path).length > 1;
 }
 
 module.exports = getPath;
