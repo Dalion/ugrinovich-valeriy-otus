@@ -1,17 +1,12 @@
 import {html, LitElement} from 'lit-element';
+import {loadData} from '../service';
 import './Leaf';
 
 class MyTree extends LitElement {
   constructor(){
     super();
-    this.data = {
-      "id": 1,
-      "items": [{
-        "id": 2,
-        "items": [{ "id": 3 }]
-      }]
-    };
-    this.name = 'My tree';
+    this.data = loadData();
+    this.name = '';
   }
 
   static get properties(){
@@ -20,6 +15,14 @@ class MyTree extends LitElement {
       name: String
     }
   }
+
+  createElement([nodeKey, nodeValue]) {
+    return html`<li>
+          ${nodeValue instanceof Object
+        ? html`<my-tree name="Branch '${nodeKey}'" .data="${nodeValue}"></my-tree>`
+        : html`<my-leaf name="Leaf '${nodeKey}'" data="${nodeValue}"></my-leaf>`}
+        </li>`
+  };
 
   render() {
     return html`
@@ -36,14 +39,9 @@ class MyTree extends LitElement {
             margin: 3px 0;
         }
       </style>
-      <ul><h2>${this.name} :</h2> ${
-        Object.entries(this.data).map(([nodeKey, nodeValue]) => 
-        html`<li>
-          ${nodeValue instanceof Object
-                  ? html`<my-tree name="Branch '${nodeKey}'" .data="${nodeValue}"></my-tree>`
-                  : html`<my-leaf name="Leaf '${nodeKey}'" data="${nodeValue}"></my-leaf>`}
-        </li>`
-        )}
+      <ul>
+      <h2>${this.name} :</h2> 
+      ${Object.entries(this.data).map(this.createElement)}
     </ul>`
   }
 }
