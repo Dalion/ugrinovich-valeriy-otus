@@ -4,11 +4,10 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "8.2.0",
-    "node-fetch": "2.6.0"
+    "minimist": "1.2.0"
   },
   "scripts": {
     "start": "node -r dotenv/config src/server.js",
-    "syncRequest": "node -r dotenv/config -e 'require(\"./src/request\").sync(10)'",
-    "asyncRequest": "node -r dotenv/config -e 'require(\"./src/request\").async(15)'"
+    "request": "node -r dotenv/config src/request.js"
   }
 }
