@@ -4,7 +4,7 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "8.2.0",
-    "minimist": "1.2.0"
+    "minimist": "1.2.5"
   },
   "scripts": {
     "start": "node -r dotenv/config src/server.js",
