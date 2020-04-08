@@ -1,6 +1,7 @@
 <template>
-    <div class="game">
-      <Calculator />
+    <div class="mx-auto">
+        <router-link to="/">Отмена</router-link>
+        <Calculator/>
     </div>
 </template>
 
