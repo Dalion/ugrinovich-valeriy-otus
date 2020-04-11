@@ -20,20 +20,17 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import ConfigPanel from '@/components/ConfigPanel.vue';
 
   export default {
     name: 'Home',
     computed: {
-      day () {
-        return this.$store.getters.getTrainingDay
-      },
-      lastResult () {
-        return this.$store.getters.lastResult
-      },
-      avgAccuracy () {
-        return this.$store.getters.avgAccuracy
-      }
+      ...(mapGetters({
+        day: 'getTrainingDay',
+        lastResult: 'lastResult',
+        avgAccuracy: 'avgAccuracy'
+      }))
     },
     components: {
       ConfigPanel,

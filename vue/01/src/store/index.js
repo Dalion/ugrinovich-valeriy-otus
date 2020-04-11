@@ -64,5 +64,8 @@ export default new Vuex.Store({
           ? _.sum(accuracyArr) / accuracyArr.length
           : undefined;
     },
+    getDuration: state => {
+      return state.settings.duration * 60;
+    }
   },
 });
