@@ -15,4 +15,8 @@
 </script>
 
 <style scoped lang="scss">
+    .btn {
+        width: 48px;
+        height: 48px;
+    }
 </style>

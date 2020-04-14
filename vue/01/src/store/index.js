@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import _ from 'lodash';
 import {
+  DECREMENT_DURATION,
   SET_DIFFICULT,
   SET_DURATION,
   TOGGLE_ADDITION, TOGGLE_DIVISION, TOGGLE_EXPONENTIATION,
@@ -15,7 +16,7 @@ export default new Vuex.Store({
   state: {
     stats: [],
     settings: {
-      duration: 7,
+      duration: 420,
       difficult: 3,
       operations: {
         addition: true,
@@ -27,8 +28,11 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    [DECREMENT_DURATION] (state) {
+      state.settings.duration -= 1;
+    },
     [SET_DURATION] (state, e) {
-      state.settings.duration = Number(e.target.value)
+      state.settings.duration = Number(e.target.value) * 60
     },
     [SET_DIFFICULT] (state, e) {
       state.settings.difficult = Number(e.target.value)
@@ -65,7 +69,7 @@ export default new Vuex.Store({
           : undefined;
     },
     getDuration: state => {
-      return state.settings.duration * 60;
+      return state.settings.duration;
     }
   },
 });

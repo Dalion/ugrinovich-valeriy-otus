@@ -7,8 +7,8 @@
                 <h5 class="mb-0">15</h5>
             </div>
             <input type="range" class="form-control-range" id="durationControlRange"
-                   min="1" max="15" :value="settings.duration" v-on:change="this.setDuration">
-            <label for="durationControlRange" class="mt-3">Длительность {{settings.duration}} минут</label>
+                   min="1" max="15" :value="settings.duration/60" v-on:change="this.setDuration">
+            <label for="durationControlRange" class="mt-3">Длительность {{settings.duration/60}} минут</label>
         </div>
         <div class="form-group my-3">
             <div class="d-flex justify-content-between">
