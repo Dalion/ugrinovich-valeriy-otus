@@ -5,10 +5,13 @@ import {
   DECREMENT_DURATION,
   SET_DIFFICULT,
   SET_DURATION,
-  TOGGLE_ADDITION, TOGGLE_DIVISION, TOGGLE_EXPONENTIATION,
+  TOGGLE_ADDITION,
+  TOGGLE_DIVISION,
+  TOGGLE_EXPONENTIATION,
   TOGGLE_MULTIPLICATION,
   TOGGLE_SUBTRACTION,
 } from './mutation-types';
+import mapStateToLocalStorage from '../plugins/mapStateToLocalStorage';
 
 Vue.use(Vuex);
 
@@ -23,34 +26,51 @@ export default new Vuex.Store({
         subtraction: false,
         division: false,
         multiplication: false,
-        exponentiation: false
-      }
+        exponentiation: false,
+      },
+    },
+    expression: {
+      firstOperand: 15,
+      secondOperand: null,
+      thirdOperand: null,
+      firstOperator: "+",
+      secondOperator: '-',
+      total: 32
     }
   },
   mutations: {
-    [DECREMENT_DURATION] (state) {
+    initialiseStore(state) {
+      if(localStorage.getItem('store')) {
+        //eslint-disable-next-line
+        const {expression, ...initialState} = JSON.parse(localStorage.getItem('store'));
+        this.replaceState(
+            Object.assign(state, initialState)
+        );
+      }
+    },
+    [DECREMENT_DURATION](state) {
       state.settings.duration -= 1;
     },
-    [SET_DURATION] (state, e) {
-      state.settings.duration = Number(e.target.value) * 60
+    [SET_DURATION](state, e) {
+      state.settings.duration = Number(e.target.value) * 60;
     },
-    [SET_DIFFICULT] (state, e) {
-      state.settings.difficult = Number(e.target.value)
+    [SET_DIFFICULT](state, e) {
+      state.settings.difficult = Number(e.target.value);
     },
-    [TOGGLE_ADDITION] (state) {
-      state.settings.operations.addition = !state.settings.operations.addition
+    [TOGGLE_ADDITION](state) {
+      state.settings.operations.addition = !state.settings.operations.addition;
     },
-    [TOGGLE_SUBTRACTION] (state) {
-      state.settings.operations.subtraction = !state.settings.operations.subtraction
+    [TOGGLE_SUBTRACTION](state) {
+      state.settings.operations.subtraction = !state.settings.operations.subtraction;
     },
-    [TOGGLE_DIVISION] (state) {
-      state.settings.operations.division = !state.settings.operations.division
+    [TOGGLE_DIVISION](state) {
+      state.settings.operations.division = !state.settings.operations.division;
     },
-    [TOGGLE_MULTIPLICATION] (state) {
-      state.settings.operations.multiplication = !state.settings.operations.multiplication
+    [TOGGLE_MULTIPLICATION](state) {
+      state.settings.operations.multiplication = !state.settings.operations.multiplication;
     },
-    [TOGGLE_EXPONENTIATION] (state) {
-      state.settings.operations.exponentiation = !state.settings.operations.exponentiation
+    [TOGGLE_EXPONENTIATION](state) {
+      state.settings.operations.exponentiation = !state.settings.operations.exponentiation;
     },
   },
   actions: {},
@@ -70,6 +90,12 @@ export default new Vuex.Store({
     },
     getDuration: state => {
       return state.settings.duration;
+    },
+    getExpressionElements: state => {
+      return {
+        ...state.expression
+      };
     }
   },
+  plugins: [mapStateToLocalStorage],
 });
