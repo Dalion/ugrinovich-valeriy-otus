@@ -6,7 +6,7 @@
                     Отмена
                 </button>
             </router-link>
-            <Timer :timer="timer"/>
+            <Timer :timer="timer" :onTimerEnd="onTimerEnd"/>
         </div>
         <div class="d-flex mt-5 operands">
             <span class="ml-auto">{{this.expression.firstOperand}}</span>
@@ -47,6 +47,7 @@
   import {mapGetters} from 'vuex';
   import Calculator from '@/components/Calculator.vue';
   import Timer from '@/components/Timer.vue';
+  import {ADD_STAT, GENERATE_EXPRESSION} from '../store/mutation-types';
 
   export default {
     name: 'Game',
@@ -61,6 +62,8 @@
         correctAnswer: null,
         showHelp: false,
         position: 'left',
+        fails: 0,
+        success: 0
       };
     },
     methods: {
@@ -72,7 +75,17 @@
             ${this.expression.secondOperator}
             ${this.thirdOperand ? this.thirdOperand : 0}
         `);
-        this.correctAnswer = localTotal === this.expression.total;
+
+        if (localTotal === this.expression.total) {
+          this.correctAnswer = true;
+          this.secondOperand = '';
+          this.thirdOperand = '';
+          this.success += 1;
+          this.$store.commit(GENERATE_EXPRESSION);
+        } else {
+          this.fails +=1;
+          this.correctAnswer = false;
+        }
         setTimeout(() => this.correctAnswer = null, 2000);
       },
       help() {
@@ -100,6 +113,16 @@
             this.thirdOperand = this.thirdOperand ? this.thirdOperand.slice(0, -1) : this.thirdOperand;
           }
         }
+      },
+      onTimerEnd() {
+        const now = new Date();
+        this.$store.commit(ADD_STAT, {
+          day: `${now.getFullYear()}-${now.getDate()}-${now.getMonth()}`,
+          done: this.success,
+          total: this.success + this.fails,
+          accuracy: (this.success / (this.success + this.fails)) * 100
+        });
+        this.$router.push('/');
       }
     },
     computed: {
@@ -109,6 +132,7 @@
       }),
     },
     created() {
+      this.$store.commit(GENERATE_EXPRESSION);
       document.addEventListener('keydown', this.onkeydown);
     },
     destroyed() {

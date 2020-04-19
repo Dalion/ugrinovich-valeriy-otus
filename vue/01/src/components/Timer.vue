@@ -8,7 +8,7 @@
 
   export default {
     name: 'Timer',
-    props: ['timer'],
+    props: ['timer', 'onTimerEnd'],
     data () {
       return {
         timerLocal: this.timer
@@ -29,6 +29,8 @@
             setTimeout(() => {
               this.timerLocal--;
             }, 1000);
+          } else {
+            this.onTimerEnd();
           }
         },
         immediate: true

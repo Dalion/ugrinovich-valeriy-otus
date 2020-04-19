@@ -3,8 +3,8 @@
         <h1>Привет!</h1>
         <div class="my-5">
             <h6>Добро пожаловать на {{day}} тренировочный день</h6>
-            <h6 v-if="lastResult">Ваш последний результат - решено {{lastResult.done}} из {{lastResult.total}}</h6>
-            <h6 v-if="avgAccuracy">Общая точность {{avgAccuracy}}%.</h6>
+            <h6 v-if="this.lastResult">Ваш последний результат - решено {{lastResult.done}} из {{lastResult.total}}</h6>
+            <h6 v-if="this.avgAccuracy">Общая точность {{Number(avgAccuracy).toFixed(2)}}%.</h6>
         </div>
 
         <ConfigPanel/>
