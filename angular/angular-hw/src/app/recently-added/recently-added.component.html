@@ -1,0 +1,29 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add new word</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="rawWord">Word</label>
+        <div class="input-group">
+          <input id="rawWord" class="form-control" placeholder="Type word..." name="rawWord">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="translateWord">Translate</label>
+        <div class="input-group">
+          <input id="translateWord" class="form-control" placeholder="Type translate..." name="translateWord">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Save</button>
+  </div>
+</ng-template>
+
+<button class="btn btn-primary" (click)="addNew(content)">Add new</button>
