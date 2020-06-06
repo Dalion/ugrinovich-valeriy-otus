@@ -1,0 +1,23 @@
+.recently-added-block {
+  margin: .4rem;
+  max-width: 16rem;
+  display: flex;
+  flex-direction: column;
+
+  * {
+    margin-bottom: .8rem;
+  }
+
+  button {
+    margin: 1.2rem 1.4rem;
+  }
+
+  .word-group-date {
+    color: lightslategray;
+    font-weight: bold;
+  }
+
+  .word-description {
+    color: lightslategray;
+  }
+}

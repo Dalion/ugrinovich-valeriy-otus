@@ -1,0 +1,32 @@
+<div class="settings-block">
+  <div>
+    <label for="native-lang">Native language:</label>
+    <select id="native-lang" [formControl]="nativeLanguage">
+      <option *ngFor="let lang of languages" [ngValue]="lang">
+        {{ lang }}
+      </option>
+    </select>
+  </div>
+  <div>
+    <label for="learn-lang">Language to learn:</label>
+    <select id="learn-lang" [formControl]="learnLanguage">
+      <option *ngFor="let lang of languages" [ngValue]="lang">
+        {{ lang }}
+      </option>
+    </select>
+  </div>
+  <div>
+    <label for="number-of-words-select">Nb. of words:</label>
+    <select id="number-of-words-select" [formControl]="wordsPerOnce">
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="50">50</option>
+    </select>
+  </div>
+  <div>
+    <button class="btn btn-primary" (click)="backClick()">Back</button>
+    <button class="btn btn-primary" (click)="save()">Save</button>
+  </div>
+
+</div>

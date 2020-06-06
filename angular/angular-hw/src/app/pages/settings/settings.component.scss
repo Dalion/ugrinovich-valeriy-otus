@@ -1,0 +1,18 @@
+.settings-block {
+  margin: 1.8rem;
+  max-width: 16rem;
+  display: flex;
+  flex-direction: column;
+
+  button {
+    min-width: 6.4rem;
+  }
+
+  & > * {
+    margin-bottom: .8rem;
+  }
+  & > div {
+    display: flex;
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,42 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add new word</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="word">Word</label>
+      <div class="input-group">
+        <input id="word" class="form-control" ngbAutofocus placeholder="Type word..." [formControl]="word">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <div class="input-group">
+        <input id="description" class="form-control" placeholder="Type description..." [formControl]="description">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="addNew()">Save</button>
+  </div>
+</ng-template>
+
+<div class="recently-added-block">
+  <button class="btn btn-primary" (click)="openModal(content)">Add new</button>
+  <ul>
+    <ng-template ngFor let-wordGroup [ngForOf]="wordGroups">
+      <li>
+        <span class="word-group-date">{{wordGroup.date}}</span>
+        <ng-template ngFor let-word [ngForOf]="wordGroup.vocabulary">
+          <div>
+            <span>{{word.value}} - {{word.translation}}</span>
+            <span *ngIf="word.description.length > 0" class="word-description"> ({{word.description}})</span>
+          </div>
+        </ng-template>
+      </li>
+    </ng-template>
+  </ul>
+</div>

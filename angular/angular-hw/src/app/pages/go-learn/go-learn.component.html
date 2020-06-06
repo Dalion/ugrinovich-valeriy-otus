@@ -1,0 +1,17 @@
+<div class="learn-block">
+  <span class="learn-word">{{word.value}}</span>
+  <label title="Enter translation">
+    <input [formControl]="translate" type="text" />
+  </label>
+  <div>
+    <div *ngIf="index <= words.length; then nextBtn else finalTitle"></div>
+    <ng-template #nextBtn>
+      <button class="btn btn-primary" (click)="next()">Next</button>
+    </ng-template>
+    <ng-template #finalTitle>
+      <span>Lesson finished!</span>
+    </ng-template>
+  </div>
+
+  <span *ngIf="!translate.valid">Translation invalid</span>
+</div>
