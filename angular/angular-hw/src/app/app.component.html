@@ -1,0 +1,13 @@
+<ul ngbNav [activeId]="route.url | async" class="nav-tabs">
+  <li [ngbNavItem]="link.path" *ngFor="let link of links">
+    <a ngbNavLink
+      [routerLink]="link.path"
+      [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{exact:true}"
+    >
+      {{ link.title }}
+    </a>
+  </li>
+</ul>
+
+<router-outlet></router-outlet>
